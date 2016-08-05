@@ -1,1 +1,1 @@
-# pyEMCA
+python -m pyEMCA.tests.pyemca_test
