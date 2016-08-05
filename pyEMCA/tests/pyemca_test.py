@@ -5,7 +5,7 @@ Tests for the pyEMCA function.
 """
 
 import unittest
-from ..pyemca import Dat, pSupI, SupI, pSupIV, SupIV, bal, liv, serLin
+from ..pyemca import Dat, pSupI, SupI, pSupIV, SupIV, bal, liv, serLin, serUEEC
 
 class TestEMCA(unittest.TestCase):
     """
@@ -115,6 +115,17 @@ class TestEMCA(unittest.TestCase):
         self.assertEquals(serA, -5000.000000000001)
         self.assertEquals(serB, 0.0)
         self.assertEquals(serC, -5000.000000000001)        
-       
+
+    def test_serueec(self):
+        """
+        Test a s
+        """
+        serA = serUEEC(15000, 20, 30, 1, 2)
+        serB = serUEEC(15000, 20, 30, 1, 1)
+        serC = serUEEC(15000, 20, 30, 1, 2)
+        self.assertEquals(serA, -7618.619047619047)
+        self.assertEquals(serB, 0.0)
+        self.assertEquals(serC, -7618.619047619047)        
+        
 if __name__ == '__main__':
     unittest.main()
