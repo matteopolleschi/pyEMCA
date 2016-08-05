@@ -92,7 +92,17 @@ class TestEMCA(unittest.TestCase):
     def test_bal4(self):
         """
         Test a simple, valid example.
-        """   
+        """  
+        psupA = pSupIV(self.prza, self.pmededia, self.supesta, self.supa, self.supseca, self.indmerca)
+        psupB = pSupIV(self.przb, self.pmededib, self.supestb, self.supb, self.supsecb, self.indmercb)
+        psupC = pSupIV(self.przc, self.pmededic, self.supestc, self.supc, self.supsecc, self.indmercc)
+        psupmin = min(psupA, psupB, psupC)
+        bala=bal(psupmin, 0.33, 8, 8)
+        balb=bal(psupmin, 0.33, 8, 4)
+        balc=bal(psupmin, 0.33, 8, 8)
+        self.assertEquals(bala, 0.0)
+        self.assertEquals(balb, 3705.086649550706)
+        self.assertEquals(balc, 0.0) 
 
     def test_liv(self):
         """
