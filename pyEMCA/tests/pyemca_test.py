@@ -48,7 +48,6 @@ class TestEMCA(unittest.TestCase):
         """
         Test a simple, valid example.
         """
-        self.assertEquals(1, 1)
         psupA=pSupI(self.prza, self.supa, self.supseca, self.indmerca)
         psupB=pSupI(self.przb, self.supb, self.supsecb, self.indmercb)
         psupC=pSupI(self.przc, self.supc, self.supsecc, self.indmercc)
