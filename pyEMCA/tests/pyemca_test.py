@@ -5,7 +5,7 @@ Tests for the pyEMCA function.
 """
 
 import unittest
-from ..pyemca import Dat, pSupI, SupI, pSupIV, SupIV, bal, liv, serLin, serUEEC
+from ..pyemca import Dat, pSupI, SupI, pSupIV, SupIV, bal, liv, serLin, serUEEC, fov, StmLin, StmUEEC
 
 class TestEMCA(unittest.TestCase):
     """
@@ -125,7 +125,40 @@ class TestEMCA(unittest.TestCase):
         serC = serUEEC(15000, 20, 30, 1, 2)
         self.assertEquals(serA, -7618.619047619047)
         self.assertEquals(serB, 0.0)
-        self.assertEquals(serC, -7618.619047619047)        
+        self.assertEquals(serC, -7618.619047619047)      
         
+    def test_fov(self):
+        """
+        Test a s
+        """ 
+        fova=fov(10000, 0, 0)
+        fovb=fov(10000, 0, 1)
+        fovc=fov(10000, 0, 0)   
+        self.assertEquals(fova, 0)
+        self.assertEquals(fovb, -10000)
+        self.assertEquals(fovc, 0)
+        
+    def test_stmlin(self):
+        """
+        Test a s
+        """ 
+        stma=StmLin(50000,50, 2010, 2000)
+        stmb=StmLin(50000, 50, 2010, 2001)
+        stmc=StmLin(50000, 50, 2010, 2008)       
+        self.assertEquals(stma, 10000.0)
+        self.assertEquals(stmb, 9000.0)
+        self.assertEquals(stmc, 2000.0)
+        
+    def test_stmueec(self):
+        """
+        Test a s
+        """        
+        stma = StmUEEC(50000, 50, 2010, 2000, 2000, 2010)
+        stmb = StmUEEC(50000, 50, 2010, 2001, 2000, 2010)
+        stmc = StmUEEC(50000, 50, 2010, 2008, 2000, 2010)
+        self.assertEquals(stma, 6035.602000000001)
+        self.assertEquals(stmb, 5432.041800000001)
+        self.assertEquals(stmc, 1207.1204000000002) 
+       
 if __name__ == '__main__':
     unittest.main()
