@@ -169,6 +169,17 @@ class TestEMCA(unittest.TestCase):
         self.assertEquals(stma, 6035.602000000001)
         self.assertEquals(stmb, 5432.041800000001)
         self.assertEquals(stmc, 1207.1204000000002) 
+        
+    def test_last_step(self):
+        """
+        Test a s
+        """        
+        import numpy as np
+        corrected_prices = [432205.91, 344189.76, 363229.03]
+        moore_penrose = np.linalg.pinv([[1, 1, 0],[1, 0, 1],[1, 0, 0]], rcond=1e-15)
+        last_step = np.dot(moore_penrose, corrected_prices)
+        benchmark = np.array([363229.03, 68976.88, -19039.27])
+        self.assertTrue(np.allclose(last_step, benchmark, rtol=1e-05, atol=1e-08, equal_nan=False))
        
 if __name__ == '__main__':
     unittest.main()
