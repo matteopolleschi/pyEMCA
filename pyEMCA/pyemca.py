@@ -99,14 +99,6 @@ def serUEEC(costoSer, vetusta, vitautile, numserv, servcomp):
     ser = pser * (numserv - servcomp)
     return ser
 
-def fov(costoIMP, presSoggStima, presComp):
-    pimp = costoIMP
-    imp = pimp * (presSoggStima - presComp)
-    return imp
-
-def dom(): #fisso
-
-    return 17
 def Amm(): #fisso
     return 18
 
@@ -128,3 +120,6 @@ def StmUEEC(costoNuovoSTM, vitautile, anzRistSoggStm, anzRistComp, annoComp, ann
     print pstm
     stm = pstm * (anzRistSoggStm - anzRistComp)
     return stm
+    
+def Impianto(val_subject, val_record, costo_impianto):
+    return (val_subject - val_record) * costo_impianto

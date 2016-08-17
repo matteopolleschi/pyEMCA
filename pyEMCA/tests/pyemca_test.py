@@ -5,7 +5,7 @@ Tests for the pyEMCA function.
 """
 
 import unittest
-from ..pyemca import Dat, pSupI, SupI, pSupIV, SupIV, bal, liv, serLin, serUEEC, fov, StmLin, StmUEEC
+from ..pyemca import Dat, pSupI, SupI, pSupIV, SupIV, bal, liv, serLin, serUEEC, fov, StmLin, StmUEEC, Impianto
 
 class TestEMCA(unittest.TestCase):
     """
@@ -137,13 +137,13 @@ class TestEMCA(unittest.TestCase):
         self.assertEquals(serB, 0.0)
         self.assertEquals(serC, -7618.619047619047)      
         
-    def test_fov(self):
+    def test_impianto(self):
         """
         Test a s
         """ 
-        fova=fov(10000, 0, 0)
-        fovb=fov(10000, 0, 1)
-        fovc=fov(10000, 0, 0)   
+        fova=Impianto(0, 0, 10000)
+        fovb=Impianto(0, 1, 10000)
+        fovc=Impianto(0, 0, 10000)   
         self.assertEquals(fova, 0)
         self.assertEquals(fovb, -10000)
         self.assertEquals(fovc, 0)
