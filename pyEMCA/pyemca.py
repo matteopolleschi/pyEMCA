@@ -1,3 +1,5 @@
+import numpy as np
+
 def Dat(prz, saggio, mesidastima, mesiatto):
     if saggio > 0:
         pdat = (prz * (-saggio)) / 12
@@ -122,4 +124,16 @@ def StmUEEC(costoNuovoSTM, vitautile, anzRistSoggStm, anzRistComp, annoComp, ann
     return stm
     
 def Impianto(val_subject, val_record, costo_impianto):
-    return (val_subject - val_record) * costo_impianto
+    result = (val_subject - val_record) * costo_impianto
+    return result
+    
+def qualitative_correction(base_matrix, corrected_prices):
+    matrix = np.insert(base_matrix, 0, values=1, axis=1) 
+    moore_penrose = np.linalg.pinv(matrix, rcond=1e-15)
+    result = np.dot(moore_penrose, corrected_prices)
+    return result
+    
+def estimation(subject, records, impianti, costo_impianti, qualitative, costo_qualitative):
+    
+    
+    return

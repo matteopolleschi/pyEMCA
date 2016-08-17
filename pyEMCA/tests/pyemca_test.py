@@ -5,7 +5,9 @@ Tests for the pyEMCA function.
 """
 
 import unittest
-from ..pyemca import Dat, pSupI, SupI, pSupIV, SupIV, bal, liv, serLin, serUEEC, fov, StmLin, StmUEEC, Impianto
+import numpy as np
+from ..pyemca import Dat, pSupI, SupI, pSupIV, SupIV, bal, liv, \
+serLin, serUEEC, StmLin, StmUEEC, Impianto, qualitative_correction, estimation
 
 class TestEMCA(unittest.TestCase):
     """
@@ -174,12 +176,17 @@ class TestEMCA(unittest.TestCase):
         """
         Test a s
         """        
-        import numpy as np
         corrected_prices = [432205.91, 344189.76, 363229.03]
-        moore_penrose = np.linalg.pinv([[1, 1, 0],[1, 0, 1],[1, 0, 0]], rcond=1e-15)
-        last_step = np.dot(moore_penrose, corrected_prices)
+        base_matrix = [[1, 0],[0, 1],[0, 0]]
+        last_step = qualitative_correction(base_matrix, corrected_prices)
         benchmark = np.array([363229.03, 68976.88, -19039.27])
-        self.assertTrue(np.allclose(last_step, benchmark, rtol=1e-05, atol=1e-08, equal_nan=False))
+        self.assertTrue(np.allclose(last_step, benchmark, rtol=1e-03, atol=1e-08, equal_nan=False))
+        
+    def test_estimation(self):
+        subject = {'price': self.prza, 'date': 0, 'surface': self.supa, 'Class': 'First'}
+        records = []
+        estimation(subject=subject, records=records, impianti=1, costo_impianti=1, qualitative=1, costo_qualitative=1)
+        self.assertTrue(1)
        
 if __name__ == '__main__':
     unittest.main()
