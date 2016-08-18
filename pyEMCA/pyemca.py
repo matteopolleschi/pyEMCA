@@ -19,14 +19,14 @@ def pSupI(prz, supPrinc, supSec, indici):
     if not (isinstance(supSec, (int, long))):
         for superficie in supSec:
             supSecInd += superficie * indici[i]
-            print "Debug"
-            print superficie, indici[i]
+            #print "Debug"
+            #print superficie, indici[i]
             i = i + 1
     else:
         supSecInd += supSec * indici
 
     psup = prz / (supPrinc + supSecInd)
-    print psup
+    #print psup
     return psup
 
 def SupI(psupmin,supSubject, stimaComp):
@@ -50,18 +50,18 @@ def pSupIV(prz, pMedEdi, supEstm, supPrinc, supSec, indici):
 
     else:
         pMedEst = pMedEdi + supEstm
-    print pMedEst
+    #print pMedEst
 
     if not (isinstance(supSec, (int, long))):
         for superficie in supSec:
             supSecInd += superficie * indici[i]
             i = i + 1
-        print supSecInd
+        #print supSecInd
     else:
         supSecInd += supSec * indici
 
     psup = (prz - pMedEst) / (supPrinc + supSecInd)
-    print psup
+    #print psup
     return psup
 
 def SupIV(psupmin, supSubject, stimaComp):
@@ -119,7 +119,7 @@ def StmUEEC(costoNuovoSTM, vitautile, anzRistSoggStm, anzRistComp, annoComp, ann
     p2=pow(y2, 2)
 
     pstm = (((costoNuovoSTM *100)/140) * p1 - p2)/(year-annoComp)
-    print pstm
+    #print pstm
     stm = pstm * (anzRistSoggStm - anzRistComp)
     return stm
     
@@ -133,7 +133,16 @@ def qualitative_correction(base_matrix, corrected_prices):
     result = np.dot(moore_penrose, corrected_prices)
     return result
     
-def estimation(subject, records, impianti, costo_impianti, qualitative, costo_qualitative):
-    
-    
+def estimation(subject, records, impianti, pdatprz, surface_sec_indexes, theorem, costo_impianti, qualitative, costo_qualitative):
+    for record in records:
+        record['dat'] = Dat(record['price'], pdatprz, subject['date'], record['date'])
+        if theorem==1: 
+            record['psup'] = pSupI(record['price'], record['surface'], record['surface_sec'], surface_sec_indexes)
+#        elif theorem==4: 
+#            record['psup'] = pSupIV(record['price'], self.pmededia, self.supesta, record['surface'], record['surface_sec'], surface_sec_indexes)
+#        else: break      
+    psupmin = min([record['psup'] for record in records])
+    for record in records:
+        if theorem==1: 
+            record['sup'] = SupI(psupmin, subject['surface'], record['surface'])
     return

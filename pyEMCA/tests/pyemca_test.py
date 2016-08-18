@@ -19,18 +19,18 @@ class TestEMCA(unittest.TestCase):
     supa=130
     supb=110
     supc=118
-    supseca=(8, 10)
-    supsecb=(4, 0)
-    supsecc=(8, 8)
-    indmerca=(0.33, 0.5)
-    indmercb=(0.33, 0.5)
-    indmercc=(0.33, 0.5)
-    pmededia=(100)
-    pmededib=(100)
-    pmededic=(100)
-    supesta=(120)
-    supestb=(0)
-    supestc=(50)
+    supseca=[8, 10]
+    supsecb=[4, 0]
+    supsecc=[8, 8]
+    indmerca=[0.33, 0.5]
+    indmercb=[0.33, 0.5]
+    indmercc=[0.33, 0.5]
+    pmededia=[100]
+    pmededib=[100]
+    pmededic=[100]
+    supesta=[120]
+    supestb=[0]
+    supestc=[50]
     
 #    def __init__(self):
 #        self.prza=2131
@@ -50,7 +50,7 @@ class TestEMCA(unittest.TestCase):
         """
         Test a simple, valid example.
         """
-        psupA=pSupI(self.prza, self.supa, self.supseca, self.indmerca)
+        psupA=pSupI(self.prza, self.supa, [8, 10], self.indmerca)
         psupB=pSupI(self.przb, self.supb, self.supsecb, self.indmercb)
         psupC=pSupI(self.przc, self.supc, self.supsecc, self.indmercc)
         psupmin = min(psupA, psupB, psupC)
@@ -183,9 +183,9 @@ class TestEMCA(unittest.TestCase):
         self.assertTrue(np.allclose(last_step, benchmark, rtol=1e-03, atol=1e-08, equal_nan=False))
         
     def test_estimation(self):
-        subject = {'price': self.prza, 'date': 0, 'surface': self.supa, 'Class': 'First'}
-        records = []
-        estimation(subject=subject, records=records, impianti=1, costo_impianti=1, qualitative=1, costo_qualitative=1)
+        subject = {'date': 0, 'surface': 105}
+        records = [{'price': self.prza, 'date': 6, 'surface': self.supa, 'surface_sec': self.supseca},{'price': self.przb, 'date': 1, 'surface': self.supb, 'surface_sec': self.supsecb},{'price': self.przc, 'date':1, 'surface': self.supc, 'surface_sec': self.supsecc}]
+        estimation(subject=subject, records=records, pdatprz=0.02, surface_sec_indexes=[0.33, 0.5], theorem=1, impianti=1, costo_impianti=1, qualitative=1, costo_qualitative=1)
         self.assertTrue(1)
        
 if __name__ == '__main__':
