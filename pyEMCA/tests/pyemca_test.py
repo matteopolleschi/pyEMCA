@@ -13,12 +13,6 @@ class TestEMCA(unittest.TestCase):
     """
     Test.
     """
-    prza=460000
-    przb=315000
-    przc=350000
-    supa=130
-    supb=110
-    supc=118
     supseca=[8, 10]
     supsecb=[4, 0]
     supsecc=[8, 8]
@@ -31,17 +25,16 @@ class TestEMCA(unittest.TestCase):
     supesta=[120]
     supestb=[0]
     supestc=[50]
-    
-#    def __init__(self):
-#        self.prza=2131
-    
+    subject = {'date': 0, 'surface': 105}
+    records = [{'price': 460000, 'date': 6, 'surface': 130, 'surface_sec': supseca},{'price': 315000, 'date': 1, 'surface': 110, 'surface_sec': supsecb},{'price': 350000, 'date':1, 'surface': 118, 'surface_sec': supsecc}]
+        
     def test_dat(self):
         """
         Test a simple, valid example.
         """
-        DATa=Dat(self.prza, 0.02, 0, 6)
-        DATb=Dat(self.przb, 0.02, 0, 1)
-        DATc=Dat(self.przc, 0.02, 0, 1)
+        DATa=Dat(self.records[0]['price'], 0.02, 0, 6)
+        DATb=Dat(self.records[1]['price'], 0.02, 0, 1)
+        DATc=Dat(self.records[2]['price'], 0.02, 0, 1)
         self.assertEquals(DATa, 4600.0)
         self.assertEquals(DATb, 525.0)
         self.assertEquals(DATc, 583.3333333333334)
@@ -50,9 +43,9 @@ class TestEMCA(unittest.TestCase):
         """
         Test a simple, valid example.
         """
-        psupA=pSupI(self.prza, self.supa, [8, 10], self.indmerca)
-        psupB=pSupI(self.przb, self.supb, self.supsecb, self.indmercb)
-        psupC=pSupI(self.przc, self.supc, self.supsecc, self.indmercc)
+        psupA=pSupI(self.records[0]['price'], self.records[0]['surface'], [8, 10], self.indmerca)
+        psupB=pSupI(self.records[1]['price'], self.records[1]['surface'], self.supsecb, self.indmercb)
+        psupC=pSupI(self.records[2]['price'], self.records[2]['surface'], self.supsecc, self.indmercc)
         psupmin = min(psupA, psupB, psupC)
         supA = SupI(psupmin, 105, 130)
         supB = SupI(psupmin, 105, 110)
@@ -65,9 +58,9 @@ class TestEMCA(unittest.TestCase):
         """
         Test a simple, valid example.
         """        
-        psupA = pSupIV(self.prza, self.pmededia, self.supesta, self.supa, self.supseca, self.indmerca)
-        psupB = pSupIV(self.przb, self.pmededib, self.supestb, self.supb, self.supsecb, self.indmercb)
-        psupC = pSupIV(self.przc, self.pmededic, self.supestc, self.supc, self.supsecc, self.indmercc)
+        psupA = pSupIV(self.records[0]['price'], self.pmededia, self.supesta, self.records[0]['surface'], self.supseca, self.indmerca)
+        psupB = pSupIV(self.records[1]['price'], self.pmededib, self.supestb, self.records[1]['surface'], self.supsecb, self.indmercb)
+        psupC = pSupIV(self.records[2]['price'], self.pmededic, self.supestc, self.records[2]['surface'], self.supsecc, self.indmercc)
         psupmin = min(psupA, psupB, psupC)
         supA = SupIV(psupmin, 105, 130)
         supB = SupIV(psupmin, 105, 110)
@@ -80,9 +73,9 @@ class TestEMCA(unittest.TestCase):
         """
         Test a simple, valid example.
         """   
-        psupA=pSupI(self.prza, self.supa, self.supseca, self.indmerca)
-        psupB=pSupI(self.przb, self.supb, self.supsecb, self.indmercb)
-        psupC=pSupI(self.przc, self.supc, self.supsecc, self.indmercc)
+        psupA=pSupI(self.records[0]['price'], self.records[0]['surface'], self.supseca, self.indmerca)
+        psupB=pSupI(self.records[1]['price'], self.records[1]['surface'], self.supsecb, self.indmercb)
+        psupC=pSupI(self.records[2]['price'], self.records[2]['surface'], self.supsecc, self.indmercc)
         psupmin = min(psupA, psupB, psupC)
         bala=bal(psupmin, 0.33, 8, 8)
         balb=bal(psupmin, 0.33, 8, 4)
@@ -95,9 +88,9 @@ class TestEMCA(unittest.TestCase):
         """
         Test a simple, valid example.
         """  
-        psupA = pSupIV(self.prza, self.pmededia, self.supesta, self.supa, self.supseca, self.indmerca)
-        psupB = pSupIV(self.przb, self.pmededib, self.supestb, self.supb, self.supsecb, self.indmercb)
-        psupC = pSupIV(self.przc, self.pmededic, self.supestc, self.supc, self.supsecc, self.indmercc)
+        psupA = pSupIV(self.records[0]['price'], self.pmededia, self.supesta, self.records[0]['surface'], self.supseca, self.indmerca)
+        psupB = pSupIV(self.records[1]['price'], self.pmededib, self.supestb, self.records[1]['surface'], self.supsecb, self.indmercb)
+        psupC = pSupIV(self.records[2]['price'], self.pmededic, self.supestc, self.records[2]['surface'], self.supsecc, self.indmercc)
         psupmin = min(psupA, psupB, psupC)
         bala=bal(psupmin, 0.33, 8, 8)
         balb=bal(psupmin, 0.33, 8, 4)
@@ -110,9 +103,9 @@ class TestEMCA(unittest.TestCase):
         """
         Test a simple, valid example.
         """   
-        liva=liv(self.prza, 0.01, 3, 3)
-        livb=liv(self.przb, 0.01, 3, 2)
-        livc=liv(self.przc, 0.01, 3, 4)
+        liva=liv(self.records[0]['price'], 0.01, 3, 3)
+        livb=liv(self.records[1]['price'], 0.01, 3, 2)
+        livc=liv(self.records[2]['price'], 0.01, 3, 4)
         self.assertEquals(liva, 0.0)
         self.assertEquals(livb, 3150.0)
         self.assertEquals(livc, -3465.3465346534654)   
@@ -183,9 +176,7 @@ class TestEMCA(unittest.TestCase):
         self.assertTrue(np.allclose(last_step, benchmark, rtol=1e-03, atol=1e-08, equal_nan=False))
         
     def test_estimation(self):
-        subject = {'date': 0, 'surface': 105}
-        records = [{'price': self.prza, 'date': 6, 'surface': self.supa, 'surface_sec': self.supseca},{'price': self.przb, 'date': 1, 'surface': self.supb, 'surface_sec': self.supsecb},{'price': self.przc, 'date':1, 'surface': self.supc, 'surface_sec': self.supsecc}]
-        estimation(subject=subject, records=records, pdatprz=0.02, surface_sec_indexes=[0.33, 0.5], theorem=1, impianti=1, costo_impianti=1, qualitative=1, costo_qualitative=1)
+        estimation(subject=self.subject, records=self.records, pdatprz=0.02, surface_sec_indexes=[0.33, 0.5], theorem=1, impianti=1, costo_impianti=1, qualitative=1, costo_qualitative=1)
         self.assertTrue(1)
        
 if __name__ == '__main__':
