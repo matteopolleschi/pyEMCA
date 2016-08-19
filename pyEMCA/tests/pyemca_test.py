@@ -44,8 +44,8 @@ class TestEMCA(unittest.TestCase):
         Test a simple, valid example.
         """
         psupA=pSupI(self.records[0]['price'], self.records[0]['surface'], self.records[0]['surface_sec'], self.indmerc)
-        psupB=pSupI(self.records[1]['price'], self.records[1]['surface'], self.supsecb, self.indmerc)
-        psupC=pSupI(self.records[2]['price'], self.records[2]['surface'], self.supsecc, self.indmerc)
+        psupB=pSupI(self.records[1]['price'], self.records[1]['surface'], self.records[1]['surface_sec'], self.indmerc)
+        psupC=pSupI(self.records[2]['price'], self.records[2]['surface'], self.records[2]['surface_sec'], self.indmerc)
         psupmin = min(psupA, psupB, psupC)
         supA = SupI(psupmin, self.subject['surface'], self.records[0]['surface'])
         supB = SupI(psupmin, self.subject['surface'], self.records[1]['surface'])
